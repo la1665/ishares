@@ -1,0 +1,53 @@
+version: '3.8'
+services:
+  # python app
+  app:
+    build: ./app
+    container_name: 'app'
+    restart: 'always'
+    # expose:
+    #   - 8000
+    # environment:
+    #   - MARIADB_DATABASE=django_app
+    #   - MARIADB_USER=django_user
+    #   - MARIADB_PASSWORD=1234
+    #   - MARIADB_HOST=mariadb
+    volumes:
+      - type: 'bind'
+        source: './app'
+        target: '/app'
+    # depends_on:
+    #   - mariadb
+
+
+#POSTGRES
+  db:
+    image: postgres
+    container_name: pgdb
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    expose:
+      - 5432
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+      - ./db/create_database1.sql:/docker-entrypoint-initdb.d/create_database1.sql
+      - ./db/create_database2.sql:/docker-entrypoint-initdb.d/create_database2.sql
+
+  # mariadb:
+  #   image: mariadb:latest
+  #   container_name: 'mariadb'
+  #   restart: 'always'
+  #   ports:
+  #     - 3306:3306
+  #   environment:
+  #     - MARIADB_DATABASE=django_app
+  #     - MARIADB_USER=django_user
+  #     - MARIADB_PASSWORD=1234
+  #     - MARIADB_ROOT_PASSWORD=1234
+  #   volumes:
+  #     - type: 'bind'
+  #       source: './volumes/dbdata'
+  #       target: '/var/lib/mysql'
+    
