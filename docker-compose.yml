@@ -4,7 +4,7 @@ services:
   app:
     build: ./app
     container_name: 'app'
-    restart: 'always'
+    restart: 'on-failure'
     volumes:
       - type: 'bind'
         source: './app'
@@ -18,16 +18,15 @@ services:
     container_name: pgdb
     restart: always
     environment:     
-      - POSTGRES_DATABASE=ishares
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DATABASE=${POSTGRES_DATABASE}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     expose:
       - 5432
     volumes:
       - type: 'bind'
         source: './dbdata'
         target: '/var/lib/postgresql/data'
-      # - ./postgres_data:/var/lib/postgresql/data
       - ./db/create_database.sql:/docker-entrypoint-initdb.d/create_database.sql
 
   #PGADMIN
@@ -35,8 +34,8 @@ services:
     image: dpage/pgadmin4
     container_name: pgadmin
     environment:
-      - PGADMIN_DEFAULT_EMAIL=root@root.com
-      - PGADMIN_DEFAULT_PASSWORD=root
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
     ports:
       - 5050:80
     restart: always

@@ -26,13 +26,14 @@ class CreateDataFrame:
             
             print(url)
             df = pd.DataFrame(results, columns=cols)
+            df = df[df['ticker'].map(lambda x: str(x)!="-")]
             self.dfs.append(df)
         return self.dfs
 
     def concat_dfs(self):
         """Concat all dataframes"""
         self.save_data()
-        df = pd.concat(self.dfs)
+        df = pd.concat(self.dfs, ignore_index=True)
         return df
 
 

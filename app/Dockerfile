@@ -11,5 +11,4 @@ COPY requirements.txt ./
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-CMD while ! python3 main.py --noinput ; do sleep 1 ; done
-# while ! python3 manage.py migrate --noinput ; do sleep 1 ; done && \
+CMD python3 main.py 
