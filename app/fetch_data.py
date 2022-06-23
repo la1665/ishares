@@ -15,7 +15,7 @@ class CreateDataFrame:
     def save_data(self):
         """send a request to esch endpoint and save each relative response data dataframe."""
         urls = self.urls.create_endpinots()
-        for url in range(len(urls[:2])):
+        for url in range(len(urls)):
             results = []
             cols = self.cols.columns_serializer(urls[url])
             req = requests.get(urls[url])

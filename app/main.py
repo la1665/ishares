@@ -1,3 +1,4 @@
+from sqlalchemy import create_engine
 import sqlite3 as sql
 
 from fetch_data import CreateDataFrame
@@ -9,8 +10,8 @@ class Database:
 
     def create_table(self):
         df = self.dataframe.concat_dfs()
-        conn = sql.connect('./ishares.db')
-        df.to_sql('ishares', conn)
+        engine = create_engine('postgresql://postgres:postgres@pgdb:5432/ishares')
+        df.to_sql('holdings', engine)
 
 
 

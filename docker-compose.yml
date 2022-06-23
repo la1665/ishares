@@ -5,49 +5,44 @@ services:
     build: ./app
     container_name: 'app'
     restart: 'always'
-    # expose:
-    #   - 8000
-    # environment:
-    #   - MARIADB_DATABASE=django_app
-    #   - MARIADB_USER=django_user
-    #   - MARIADB_PASSWORD=1234
-    #   - MARIADB_HOST=mariadb
     volumes:
       - type: 'bind'
         source: './app'
         target: '/app'
-    # depends_on:
-    #   - mariadb
+    depends_on:
+      - pgdb
 
-
-#POSTGRES
-  db:
+  #POSTGRES
+  pgdb:
     image: postgres
     container_name: pgdb
     restart: always
-    environment:
+    environment:     
+      - POSTGRES_DATABASE=ishares
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     expose:
       - 5432
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data
-      - ./db/create_database1.sql:/docker-entrypoint-initdb.d/create_database1.sql
-      - ./db/create_database2.sql:/docker-entrypoint-initdb.d/create_database2.sql
+      - type: 'bind'
+        source: './dbdata'
+        target: '/var/lib/postgresql/data'
+      # - ./postgres_data:/var/lib/postgresql/data
+      - ./db/create_database.sql:/docker-entrypoint-initdb.d/create_database.sql
 
-  # mariadb:
-  #   image: mariadb:latest
-  #   container_name: 'mariadb'
-  #   restart: 'always'
-  #   ports:
-  #     - 3306:3306
-  #   environment:
-  #     - MARIADB_DATABASE=django_app
-  #     - MARIADB_USER=django_user
-  #     - MARIADB_PASSWORD=1234
-  #     - MARIADB_ROOT_PASSWORD=1234
-  #   volumes:
-  #     - type: 'bind'
-  #       source: './volumes/dbdata'
-  #       target: '/var/lib/mysql'
+  #PGADMIN
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=root@root.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - 5050:80
+    restart: always
     
+volumes:
+  app:
+  pgdb:
+
+ 
