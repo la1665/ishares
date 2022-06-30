@@ -26,8 +26,8 @@ ISHARES_HOLDINGS = [
         ('https://www.ishares.com/ch/institutional/en/products/244048/ishares-core-msci-total-international-stock-etf/1495092304805.ajax?fileType=csv&fileName=IXUS_holdings&dataType=fund',
          'iShares Core MSCI Total International Stock ETF', 9),
 
-        ('https://www.ishares.com/ch/institutional/en/products/253736/ishares-msci-russia-adrgdr-ucits-etf/1495092304805.ajax?fileType=csv&fileName=CSRU_holdings&dataType=fund',
-         'iShares MSCI Russia ADR/GDR UCITS ETF USD', 2),
+        # ('https://www.ishares.com/ch/institutional/en/products/253736/ishares-msci-russia-adrgdr-ucits-etf/1495092304805.ajax?fileType=csv&fileName=CSRU_holdings&dataType=fund',
+        #  'iShares MSCI Russia ADR/GDR UCITS ETF USD', 2),
         
         ('https://www.blackrock.com/americas-offshore/en/products/251867/ishares-msci-japan-imi-ucits-etf-acc-fund/1474306011330.ajax?fileType=csv&fileName=SJPA_holdings&dataType=fund', 
          'iShares Core MSCI Japan IMI UCITS ETF', 2),
